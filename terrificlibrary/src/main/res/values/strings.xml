@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">terrificLibrary;</string>
+
+    <!--Dialog 相关-->
+    <string name="permission_rationale_message">You have rejected us to apply for authorization, please agree to authorization, otherwise the function can\'t be used normally!</string>
+    <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
+
+    <!--Keyboard 相关-->
+    <string name="keyboard_hide_soft_input">Hide Soft Input</string>
+    <string name="keyboard_show_soft_input">Show Soft Input</string>
+    <string name="keyboard_toggle_soft_input">Toggle Soft Input</string>
+    <string name="keyboard_show_dialog">Show Dialog</string>
+    <string name="keyboard_close_dialog">Close Dialog</string>
+    <!--初始化 相关-->
+    <string name="init_exception">Initialization exception </string>
+
+    <string name="git_hub">GitHub</string>
+    <string name="blog">Blog</string>
+
+</resources>
