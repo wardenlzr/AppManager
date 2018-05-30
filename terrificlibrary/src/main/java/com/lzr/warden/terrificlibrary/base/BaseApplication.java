@@ -40,12 +40,9 @@ public class BaseApplication extends Application {
     }
     @SuppressLint("MissingPermission")
     private void initCrash() {
-        CrashUtils.init(new CrashUtils.OnCrashListener() {
-            @Override
-            public void onCrash(String crashInfo, Throwable e) {
-                LogUtils.e(crashInfo);
+        CrashUtils.init((crashInfo, e) -> {
+            LogUtils.e(crashInfo);
 //                AppUtils.relaunchApp();
-            }
         });
     }
     private ActivityLifecycleCallbacks mCallbacks = new ActivityLifecycleCallbacks() {

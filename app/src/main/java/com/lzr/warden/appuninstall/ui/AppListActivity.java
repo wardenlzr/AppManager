@@ -1,8 +1,11 @@
 package com.lzr.warden.appuninstall.ui;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +19,7 @@ import com.lzr.warden.appuninstall.adapter.AppListAdapter;
 import com.lzr.warden.appuninstall.entity.AppInfo;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
 import com.lzr.warden.terrificlibrary.util.AppUtils;
+import com.lzr.warden.terrificlibrary.util.ColorUtils;
 import com.lzr.warden.terrificlibrary.util.ThreadUtils;
 
 import java.io.File;
@@ -59,6 +63,7 @@ public class AppListActivity extends BaseBackActivity {
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
         getToolBar().setTitle(title);
+        setToolBarBG(ColorUtils.getRandomColor());
         mRecyclerView = findViewById(R.id.rvAppList);
         mRecyclerView.setHasFixedSize(true);
 
@@ -69,10 +74,23 @@ public class AppListActivity extends BaseBackActivity {
         AppListAdapter appListAdapter = new AppListAdapter(appInfos);
         appListAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         appListAdapter.setNotDoAnimationCount(3);
+        appListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            AppInfo item = appInfos.get(position);
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            // 将文本内容放到系统剪贴板里。
+            assert cm != null;
+            cm.setText(item.getPkgName());
+            shortToast("包名已复制到粘贴板");
+        });
         appListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             AppInfo item = appInfos.get(position);
             switch (view.getId()){
                 case R.id.tv_start:
+                    Intent intent = item.getIntent();
+                    if (intent == null) {
+                        shortToast("抱歉，此应用小编打不开");
+                        break;
+                    }
                     startActivity(item.getIntent());
                     break;
                 case R.id.tv_delete:

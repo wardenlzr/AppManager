@@ -42,8 +42,13 @@ public abstract class BaseBackActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         getToolBar().setDisplayHomeAsUpEnabled(true);
 
-        BarUtils.setStatusBarColor(this, ContextCompat.getColor(BaseApplication.getInstance(), R.color.colorPrimary), 0);
+        BarUtils.setStatusBarColor(mContext, ContextCompat.getColor(BaseApplication.getInstance(), R.color.colorPrimary), 0);
         BarUtils.addMarginTopEqualStatusBarHeight(mContentView);
+    }
+
+    public void setToolBarBG(int color) {
+        mToolbar.setBackgroundColor(color);
+        BarUtils.setStatusBarColor(mContext, color, 0);
     }
 
     @Override

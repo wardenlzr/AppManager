@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
-//import com.lzr.warden.terrificlibrary.R;
+import com.lzr.warden.terrificlibrary.R;
 import com.lzr.warden.terrificlibrary.util.ToastUtils;
 
 /**
@@ -48,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity
             initView(savedInstanceState, mContentView);
         } catch (Exception e) {
             e.printStackTrace();
-//            ToastUtils.showShort(getString(R.string.init_exception) + e.getMessage());
+            ToastUtils.showShort(getString(R.string.init_exception) + e.getMessage());
         }
     }
 
@@ -56,30 +56,30 @@ public abstract class BaseActivity extends AppCompatActivity
 
     }
 
-    public void startActivity(Class clazz){
+    public void startActivity(Class clazz) {
         startActivity(clazz, null);
     }
 
-    public void startActivity(Class clazz, Bundle bundle){
-        Intent intent = new Intent(mContext, clazz);
-        if (bundle !=null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-    }
-
-    public void startActivityForResult(Class clazz, int requestCode){
-        startActivityForResult(clazz,null,requestCode);
-    }
-
-    public void startActivityForResult(Class clazz, Bundle bundle, int requestCode){
+    public void startActivity(Class clazz, Bundle bundle) {
         Intent intent = new Intent(mContext, clazz);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-        startActivityForResult(intent,requestCode);
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+    }
+
+    public void startActivityForResult(Class clazz, int requestCode) {
+        startActivityForResult(clazz, null, requestCode);
+    }
+
+    public void startActivityForResult(Class clazz, Bundle bundle, int requestCode) {
+        Intent intent = new Intent(mContext, clazz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     public void startPd() {
@@ -89,24 +89,23 @@ public abstract class BaseActivity extends AppCompatActivity
             pd.show();
 
             //设置超时自动消失
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //取消加载框
-                    if(dismissProgressDialog()){
-                        shortToast("啥玩意了？15秒还没好...");
-                    }
+            new Handler().postDelayed(() -> {
+                //取消加载框
+                if (dismissProgressDialog()) {
+                    shortToast("啥玩意了？15秒还没好...");
                 }
             }, 15000L);//超时时间
         }
     }
-    public void stopPd(){
+
+    public void stopPd() {
         if (pd != null) {
             pd.cancel();
         }
     }
+
     public Boolean dismissProgressDialog() {
-        if (pd != null){
+        if (pd != null) {
             if (pd.isShowing()) {
                 pd.dismiss();
                 return true;//取消成功
@@ -114,6 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity
         }
         return false;//已经取消过了，不需要取消
     }
+
     @SuppressLint("ResourceType")
     protected void setBaseView(@LayoutRes int layoutId) {
         if (layoutId <= 0) return;
@@ -134,7 +134,7 @@ public abstract class BaseActivity extends AppCompatActivity
         return true;
     }
 
-    public void shortToast(String s){
+    public void shortToast(String s) {
         ToastUtils.showShort(s);
     }
 

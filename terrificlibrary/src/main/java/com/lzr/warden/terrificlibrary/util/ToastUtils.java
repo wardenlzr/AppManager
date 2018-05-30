@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lzr.warden.terrificlibrary.R;
+
 import java.lang.ref.WeakReference;
 
 /**

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="horizontal">
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,10 +17,12 @@
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:padding="@dimen/dp_4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_10">
+
             <ImageView
                 android:id="@+id/imgApp"
                 android:layout_width="45dp"
@@ -38,6 +41,7 @@
                     android:id="@+id/tv_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="应用名：QQ"
                     android:textSize="@dimen/sp_14"
                     tools:ignore="HardcodedText" />
@@ -46,13 +50,16 @@
                     android:id="@+id/tv_pkg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="包名：com.xx.xxx"
                     android:textSize="@dimen/sp_12"
                     tools:ignore="HardcodedText" />
+
                 <TextView
                     android:id="@+id/tv_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="数据大小：250M"
                     android:textSize="@dimen/sp_12"
                     tools:ignore="HardcodedText" />
@@ -66,7 +73,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="&#xe717;"
                 android:textColor="@color/rainbow_green"
-                android:textSize="@dimen/font_20" />
+                android:textSize="@dimen/font_32" />
 
             <com.lzr.warden.terrificlibrary.iconfont.ITextView
                 android:id="@+id/tv_delete"
@@ -75,7 +82,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="&#xe627;"
                 android:textColor="@color/rainbow_red"
-                android:textSize="@dimen/font_20" />
+                android:textSize="@dimen/font_32" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

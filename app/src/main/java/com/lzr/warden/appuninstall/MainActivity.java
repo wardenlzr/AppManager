@@ -32,6 +32,7 @@ public class MainActivity extends BaseDrawerActivity {
 
     private HomeAdapter homeAdapter;
     private List<HomeItem> mDataList;
+    private Toolbar mToolbar;
 
     @Override
     public int bindLayout() {
@@ -40,21 +41,21 @@ public class MainActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         View fakeStatusBar = findViewById(R.id.fake_status_bar);
         CollapsingToolbarLayout ctl = findViewById(R.id.ctl);
         ctl.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 rootLayout,
-                toolbar,
+                mToolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         rootLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         BarUtils.setStatusBarAlpha4Drawer(this, rootLayout, fakeStatusBar, 0, false);
-        BarUtils.addMarginTopEqualStatusBarHeight(toolbar);
+        BarUtils.addMarginTopEqualStatusBarHeight(mToolbar);
 
         mRecyclerView = findViewById(R.id.rv_list);
         mDataList = new ArrayList<>();
@@ -67,7 +68,10 @@ public class MainActivity extends BaseDrawerActivity {
         }
         setHomeAdapter(mDataList);
     }
-
+    public void setToolBarBG(int color){
+        mToolbar.setBackgroundColor(color);
+        BarUtils.setStatusBarColor(mContext, color, 0);
+    }
     private void setHomeAdapter(final List<HomeItem> mDataList) {
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         homeAdapter = new HomeAdapter(mDataList);

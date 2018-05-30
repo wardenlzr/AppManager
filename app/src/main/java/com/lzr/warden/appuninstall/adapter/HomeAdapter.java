@@ -1,5 +1,6 @@
 package com.lzr.warden.appuninstall.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -7,8 +8,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzr.warden.appuninstall.R;
 import com.lzr.warden.appuninstall.entity.HomeItem;
 import com.lzr.warden.terrificlibrary.iconfont.I;
+import com.lzr.warden.terrificlibrary.util.ColorUtils;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by yubin
@@ -23,9 +26,10 @@ public class HomeAdapter extends BaseQuickAdapter<HomeItem, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, HomeItem item) {
         helper.setText(R.id.text, item.getTitle())
                 .setText(R.id.icon, I.ICON_MAP.get(item.getImageResource()));
+        helper.setTextColor(R.id.icon, ColorUtils.getRandomColor());
     }
 
-    public void clear(){
+    public void clear() {
         mData.clear();
         notifyDataSetChanged();
     }

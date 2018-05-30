@@ -25,7 +25,7 @@
                 android:id="@+id/icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dp_40"
+                android:textSize="@dimen/font_40"
                 android:text="&#xe729;"/>
 
             <TextView
