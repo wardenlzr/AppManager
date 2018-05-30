@@ -6,6 +6,15 @@ package com.lzr.warden.appuninstall.entity;
 public class HomeItem {
     private String title;
     private String imageResource;
+    private int filter;
+
+    public int getFilter() {
+        return filter;
+    }
+
+    public void setFilter(int filter) {
+        this.filter = filter;
+    }
 
     public String getImageResource() {
         return imageResource;

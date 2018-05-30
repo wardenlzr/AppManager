@@ -1,1 +1,1 @@
-include ':app', ':terrificlibrary'
+include ':app', ':terrificLibrary'

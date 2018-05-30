@@ -14,6 +14,11 @@
     <!--初始化 相关-->
     <string name="init_exception">Initialization exception </string>
 
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
+
+    <string name="author">Warden</string>
+    <string name="desc">多读书多睡觉，少吃零食多看报</string>
     <string name="git_hub">GitHub</string>
     <string name="blog">Blog</string>
 

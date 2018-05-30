@@ -24,4 +24,9 @@ public class HomeAdapter extends BaseQuickAdapter<HomeItem, BaseViewHolder> {
         helper.setText(R.id.text, item.getTitle())
                 .setText(R.id.icon, I.ICON_MAP.get(item.getImageResource()));
     }
+
+    public void clear(){
+        mData.clear();
+        notifyDataSetChanged();
+    }
 }
