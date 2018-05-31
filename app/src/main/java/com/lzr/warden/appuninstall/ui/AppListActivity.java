@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,7 +19,7 @@ import com.lzr.warden.appuninstall.entity.AppInfo;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
 import com.lzr.warden.terrificlibrary.util.AppUtils;
 import com.lzr.warden.terrificlibrary.util.ColorUtils;
-import com.lzr.warden.terrificlibrary.util.GlideUtils;
+import com.lzr.warden.terrificlibrary.util.NumberUtils;
 import com.lzr.warden.terrificlibrary.util.ThreadUtils;
 
 import java.io.File;
@@ -175,7 +174,7 @@ public class AppListActivity extends BaseBackActivity {
         long length = new File(app.sourceDir).length();
         //转换为 M
         float size = length * 1f / 1024 / 1024;
-        String allSize = size + "M";
+        String allSize = NumberUtils.get2Decimal(size) + "M";
         appInfo.setSize(allSize);
         return appInfo;
     }

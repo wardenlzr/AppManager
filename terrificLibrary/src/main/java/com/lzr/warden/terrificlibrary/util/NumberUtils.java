@@ -21,6 +21,10 @@ public class NumberUtils {
         DecimalFormat df = new DecimalFormat("0.00");
         return String.valueOf(df.format(l));
     }
+    public static String get2Decimal(float l) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return String.valueOf(df.format(l));
+    }
 
     /**
      * 可重复使用的Long常量0L
