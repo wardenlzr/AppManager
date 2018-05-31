@@ -5,7 +5,10 @@
 通过此APP，整理一些优秀的第三方库到TerrificLibrary，每一个都经过深思熟虑之后才会引入。
 按照惯例给几个效果图：
 
-
+![](https://raw.githubusercontent.com/wardenlzr/AppManager/master/Screenshots/device-2018-05-30-180309.png)
+![](https://raw.githubusercontent.com/wardenlzr/AppManager/master/Screenshots/device-2018-05-30-180334.png)
+![](https://raw.githubusercontent.com/wardenlzr/AppManager/master/Screenshots/device-2018-05-30-180353.png)
+![](https://raw.githubusercontent.com/wardenlzr/AppManager/master/Screenshots/device-2018-05-30-180426.png)
 
 # 已引入优秀第三方
 
