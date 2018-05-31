@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
+    android:orientation="vertical"
     tools:context=".ui.AppListActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvAppList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadingEdge="none"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none" />
 
 </LinearLayout>

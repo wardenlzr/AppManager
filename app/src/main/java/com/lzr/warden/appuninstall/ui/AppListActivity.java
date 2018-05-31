@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,6 +20,7 @@ import com.lzr.warden.appuninstall.entity.AppInfo;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
 import com.lzr.warden.terrificlibrary.util.AppUtils;
 import com.lzr.warden.terrificlibrary.util.ColorUtils;
+import com.lzr.warden.terrificlibrary.util.GlideUtils;
 import com.lzr.warden.terrificlibrary.util.ThreadUtils;
 
 import java.io.File;
@@ -39,7 +40,8 @@ public class AppListActivity extends BaseBackActivity {
     public int bindLayout() {
         return R.layout.activity_app_list;
     }
-    ThreadUtils.SimpleTask mSimpleTask = new ThreadUtils.SimpleTask<List<AppInfo>>() {
+
+    ThreadUtils.SimpleTask mQueryAppTask = new ThreadUtils.SimpleTask<List<AppInfo>>() {
         @Override
         public List<AppInfo> doInBackground() {
             return queryFilterAppInfo(filter);
@@ -52,12 +54,13 @@ public class AppListActivity extends BaseBackActivity {
         }
 
     };
+
     @Override
     public void initData(@Nullable Bundle bundle) {
         filter = bundle.getInt("filter");
         title = bundle.getString("title");
         startPd();
-        ThreadUtils.executeBySingle(mSimpleTask);
+        ThreadUtils.executeBySingle(mQueryAppTask);
     }
 
     @Override
@@ -65,6 +68,8 @@ public class AppListActivity extends BaseBackActivity {
         getToolBar().setTitle(title);
         setToolBarBG(ColorUtils.getRandomColor());
         mRecyclerView = findViewById(R.id.rvAppList);
+//        ImageView imageView = findViewById(R.id.iv);
+//        GlideUtils.loadCircleImg("https://avatars2.githubusercontent.com/u/16572346?s=400&u=3d68b0771b27b7f7bfd98a2d0f99ab2b1f5a2817&v=4\n",imageView);
         mRecyclerView.setHasFixedSize(true);
 
     }
@@ -84,7 +89,7 @@ public class AppListActivity extends BaseBackActivity {
         });
         appListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             AppInfo item = appInfos.get(position);
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.tv_start:
                     Intent intent = item.getIntent();
                     if (intent == null) {

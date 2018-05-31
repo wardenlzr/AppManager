@@ -42,13 +42,18 @@ public abstract class BaseActivity extends AppCompatActivity
         try {
             mContext = this;
             pd = new ProgressDialog(mContext);
-            Bundle bundle = getIntent().getExtras();
-            initData(bundle);
+            try {
+                Bundle bundle = getIntent().getExtras();
+                initData(bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
+                shortToast("参数传递出错了");
+            }
             setBaseView(bindLayout());
             initView(savedInstanceState, mContentView);
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtils.showShort(getString(R.string.init_exception) + e.getMessage());
+            shortToast(getString(R.string.init_exception) + e.getMessage());
         }
     }
 

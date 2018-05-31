@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -21,9 +22,113 @@ import java.security.MessageDigest;
  * 2018/5/30 0030-上午 8:55
  */
 public class GlideUtils {
-    public static void loadImg(Context context,String url, ImageView imageView) {
-        Glide.with(context).load(url).into(imageView);
+
+    private static Context context = Utils.getApp();
+    private static int placeholder = R.drawable.empty;
+
+    /**
+     * 设置统一的默认占位图
+     *
+     * @param img
+     */
+    public static void setPlaceholder(int img) {
+        placeholder = img;
     }
+
+    /**
+     * 加载图片
+     *
+     * @param url
+     * @param imageView
+     */
+    public static void loadImg(String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions()
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    public static void loadImg(Drawable drawable, ImageView imageView) {
+        Glide.with(context)
+                .load(drawable)
+                .apply(new RequestOptions()
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    /**
+     * 加载图片，单独设置占位图
+     *
+     * @param url
+     * @param placeholder
+     * @param imageView
+     */
+    public static void loadImg(String url, int placeholder, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions()
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    public static void loadImg(Drawable drawable, int placeholder, ImageView imageView) {
+        Glide.with(context)
+                .load(drawable)
+                .apply(new RequestOptions()
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    /**
+     * 加载圆形图片
+     *
+     * @param url
+     * @param imageView
+     */
+    public static void loadCircleImg(String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions()
+                        .transform(new GlideCircleTransform())
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    public static void loadCircleImg(Drawable drawable, ImageView imageView) {
+        Glide.with(context)
+                .load(drawable)
+                .apply(new RequestOptions()
+                        .transform(new GlideCircleTransform())
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    /**
+     * 加载圆形图片，单独设置占位图
+     *
+     * @param url
+     * @param placeholder
+     * @param imageView
+     */
+    public static void loadCircleImg(String url, int placeholder, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions()
+                        .transform(new GlideCircleTransform())
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
+    public static void loadCircleImg(Drawable drawable, int placeholder, ImageView imageView) {
+        Glide.with(context)
+                .load(drawable)
+                .apply(new RequestOptions()
+                        .transform(new GlideCircleTransform())
+                        .placeholder(placeholder))
+                .into(imageView);
+    }
+
 
     /**
      * Created by qly on 2016/6/22.
