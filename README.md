@@ -3,6 +3,9 @@
 
 一个简约的Material Design 风格的APP卸载程序，
 通过此APP，整理一些优秀的第三方库到TerrificLibrary，每一个都经过深思熟虑之后才会引入。
+按照惯例给几个效果图：
+
+
 
 # 已引入优秀第三方
 
@@ -19,7 +22,7 @@
 ...
 
 [AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)
-* ## 基于[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)新增以下工具
+* ## 基于Blankj大佬的[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode)新增以下工具
 * ### Glide 相关 -> [GlideUtils.java](https://github.com/wardenlzr/AppManager/blob/d1532ae8a1980058c86441e6bbe101e80b0ca8b7/terrificLibrary/src/main/java/com/lzr/warden/terrificlibrary/util/GlideUtils.java)
     ```
     setPlaceholder        : 设置全局占位图
