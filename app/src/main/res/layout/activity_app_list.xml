@@ -7,11 +7,18 @@
     android:orientation="vertical"
     tools:context=".ui.AppListActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvAppList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fadingEdge="none" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvAppList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fadingEdge="none" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

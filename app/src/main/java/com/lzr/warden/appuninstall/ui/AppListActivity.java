@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +27,7 @@ public class AppListActivity extends BaseBackActivity {
 
 
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout srl;
     private int filter = 0;
     private String title = "";
     private AppListAdapter appListAdapter;
@@ -46,12 +48,14 @@ public class AppListActivity extends BaseBackActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 99) {
-            appListAdapter.clear();
             getAppList();
         }
     }
 
     private void getAppList() {
+        if (appListAdapter != null) {
+            appListAdapter.clear();
+        }
         startPd();
         ThreadUtils.executeBySingle(new QueryAppTask(this, filter));
     }
@@ -61,10 +65,12 @@ public class AppListActivity extends BaseBackActivity {
         getToolBar().setTitle(title);
         setToolBarBG(ColorUtils.getRandomColor());
         mRecyclerView = findViewById(R.id.rvAppList);
+        srl = findViewById(R.id.srl);
+        srl.setColorSchemeColors(ColorUtils.getRandomColor());
 //        ImageView imageView = findViewById(R.id.iv);
 //        GlideUtils.loadCircleImg("https://avatars2.githubusercontent.com/u/16572346?s=400&u=3d68b0771b27b7f7bfd98a2d0f99ab2b1f5a2817&v=4\n",imageView);
         mRecyclerView.setHasFixedSize(true);
-
+        srl.setOnRefreshListener(() -> getAppList());
     }
 
     public void setAppAdapter(List<AppInfo> appInfos) {
@@ -106,7 +112,7 @@ public class AppListActivity extends BaseBackActivity {
         mRecyclerView.setAdapter(appListAdapter);
         appListAdapter.setEmptyView(R.layout.view_empty, mRecyclerView);
         stopPd();
+        srl.setRefreshing(false);
     }
-
 
 }
