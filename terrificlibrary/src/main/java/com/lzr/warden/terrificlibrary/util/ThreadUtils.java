@@ -1007,7 +1007,13 @@ public final class ThreadUtils {
         public void run() {
             try {
                 final T result = doInBackground();
-                if (state != NEW) return;
+                Deliver.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onSuccess(result);
+                    }
+                });
+                /*if (state != NEW) return;
 
                 if (isSchedule) {
                     Deliver.post(new Runnable() {
@@ -1025,7 +1031,7 @@ public final class ThreadUtils {
                             removeScheduleByTask(Task.this);
                         }
                     });
-                }
+                }*/
             } catch (final Throwable throwable) {
                 if (state != NEW) return;
 

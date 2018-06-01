@@ -34,6 +34,7 @@ public class AppListActivity extends BaseBackActivity {
     private int filter = 0;
     private String title = "";
     private PackageManager pm;
+    private AppListAdapter appListAdapter;
 
     @Override
     public int bindLayout() {
@@ -49,7 +50,6 @@ public class AppListActivity extends BaseBackActivity {
         @Override
         public void onSuccess(List<AppInfo> result) {
             setAppAdapter(result);
-            stopPd();
         }
 
     };
@@ -60,6 +60,16 @@ public class AppListActivity extends BaseBackActivity {
         title = bundle.getString("title");
         startPd();
         ThreadUtils.executeBySingle(mQueryAppTask);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 99) {
+            appListAdapter.clear();
+            startPd();
+            ThreadUtils.executeBySingle(mQueryAppTask);
+        }
     }
 
     @Override
@@ -75,7 +85,7 @@ public class AppListActivity extends BaseBackActivity {
 
     private void setAppAdapter(List<AppInfo> appInfos) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        AppListAdapter appListAdapter = new AppListAdapter(appInfos);
+        appListAdapter = new AppListAdapter(appInfos);
         appListAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         appListAdapter.setNotDoAnimationCount(3);
         appListAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -104,7 +114,7 @@ public class AppListActivity extends BaseBackActivity {
                             .positiveText("取消")
                             .onPositive((dialog, which) -> dialog.dismiss())
                             .negativeText("确定")
-                            .onNegative(((dialog, which) -> AppUtils.uninstallApp(item.getPkgName())))
+                            .onNegative(((dialog, which) -> AppUtils.uninstallApp(mContext, item.getPkgName(), 99)))
                             .show();
                     break;
             }
