@@ -3,8 +3,6 @@ package com.lzr.warden.appuninstall.ui;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +14,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzr.warden.appuninstall.R;
 import com.lzr.warden.appuninstall.adapter.AppListAdapter;
 import com.lzr.warden.appuninstall.entity.AppInfo;
+import com.lzr.warden.appuninstall.task.QueryAppTask;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
 import com.lzr.warden.terrificlibrary.util.AppUtils;
 import com.lzr.warden.terrificlibrary.util.ColorUtils;
-import com.lzr.warden.terrificlibrary.util.NumberUtils;
 import com.lzr.warden.terrificlibrary.util.ThreadUtils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AppListActivity extends BaseBackActivity {
@@ -33,7 +28,6 @@ public class AppListActivity extends BaseBackActivity {
     private RecyclerView mRecyclerView;
     private int filter = 0;
     private String title = "";
-    private PackageManager pm;
     private AppListAdapter appListAdapter;
 
     @Override
@@ -41,25 +35,11 @@ public class AppListActivity extends BaseBackActivity {
         return R.layout.activity_app_list;
     }
 
-    ThreadUtils.SimpleTask mQueryAppTask = new ThreadUtils.SimpleTask<List<AppInfo>>() {
-        @Override
-        public List<AppInfo> doInBackground() {
-            return queryFilterAppInfo(filter);
-        }
-
-        @Override
-        public void onSuccess(List<AppInfo> result) {
-            setAppAdapter(result);
-        }
-
-    };
-
     @Override
     public void initData(@Nullable Bundle bundle) {
         filter = bundle.getInt("filter");
         title = bundle.getString("title");
-        startPd();
-        ThreadUtils.executeBySingle(mQueryAppTask);
+        getAppList();
     }
 
     @Override
@@ -67,9 +47,13 @@ public class AppListActivity extends BaseBackActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 99) {
             appListAdapter.clear();
-            startPd();
-            ThreadUtils.executeBySingle(mQueryAppTask);
+            getAppList();
         }
+    }
+
+    private void getAppList() {
+        startPd();
+        ThreadUtils.executeBySingle(new QueryAppTask(this, filter));
     }
 
     @Override
@@ -83,7 +67,7 @@ public class AppListActivity extends BaseBackActivity {
 
     }
 
-    private void setAppAdapter(List<AppInfo> appInfos) {
+    public void setAppAdapter(List<AppInfo> appInfos) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         appListAdapter = new AppListAdapter(appInfos);
         appListAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
@@ -124,68 +108,5 @@ public class AppListActivity extends BaseBackActivity {
         stopPd();
     }
 
-    // 根据查询条件，查询特定的ApplicationInfo
-    private List<AppInfo> queryFilterAppInfo(int filter) {
-        pm = this.getPackageManager();
-        // 查询所有已经安装的应用程序
-        List<ApplicationInfo> listAppcations = pm
-                .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
-        Collections.sort(listAppcations,
-                new ApplicationInfo.DisplayNameComparator(pm));// 排序
-        List<AppInfo> appInfos = new ArrayList<AppInfo>(); // 保存过滤查到的AppInfo
-        // 根据条件来过滤
-        switch (filter) {
-            case 0: // 所有应用程序
-                appInfos.clear();
-                for (ApplicationInfo app : listAppcations) {
-                    appInfos.add(getAppInfo(app));
-                }
-                return appInfos;
-            case 1: // 系统程序
-                appInfos.clear();
-                for (ApplicationInfo app : listAppcations) {
-                    if ((app.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
-                        appInfos.add(getAppInfo(app));
-                    }
-                }
-                return appInfos;
-            case 2: // 第三方应用程序
-                appInfos.clear();
-                for (ApplicationInfo app : listAppcations) {
-                    if ((app.flags & ApplicationInfo.FLAG_SYSTEM) <= 0) {
-                        appInfos.add(getAppInfo(app));
-                    }
-                }
-                break;
-            case 3: // 安装在SDCard的应用程序
-                appInfos.clear();
-                for (ApplicationInfo app : listAppcations) {
-                    if ((app.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
-                        appInfos.add(getAppInfo(app));
-                    }
-                }
-                return appInfos;
-            default:
-                return null;
-        }
-        return appInfos;
-    }
 
-    // 构造一个AppInfo对象 ，并赋值
-    private AppInfo getAppInfo(ApplicationInfo app) {
-        AppInfo appInfo = new AppInfo();
-        appInfo.setAppLabel((String) app.loadLabel(pm));
-        appInfo.setAppIcon(app.loadIcon(pm));
-        appInfo.setPkgName(app.packageName);
-        PackageManager manager = getPackageManager();
-        Intent intent = manager.getLaunchIntentForPackage(app.packageName);
-        appInfo.setIntent(intent);
-        //获取应用数据大小
-        long length = new File(app.sourceDir).length();
-        //转换为 M
-        float size = length * 1f / 1024 / 1024;
-        String allSize = NumberUtils.get2Decimal(size) + "M";
-        appInfo.setSize(allSize);
-        return appInfo;
-    }
 }

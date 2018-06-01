@@ -966,7 +966,7 @@ public final class ThreadUtils {
         }
     }
 
-    public abstract static class SimpleTask<T> extends Task<T> {
+    public abstract static class SimpleTask<T> extends Task<T> implements Cloneable {
 
         @Override
         public void onCancel() {
@@ -980,7 +980,7 @@ public final class ThreadUtils {
 
     }
 
-    public abstract static class Task<T> implements Runnable {
+    public abstract static class Task<T> implements Runnable, Cloneable {
 
         private boolean isSchedule;
 
@@ -1007,14 +1007,7 @@ public final class ThreadUtils {
         public void run() {
             try {
                 final T result = doInBackground();
-                Deliver.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        onSuccess(result);
-                    }
-                });
-                /*if (state != NEW) return;
-
+                if (state != NEW) return;
                 if (isSchedule) {
                     Deliver.post(new Runnable() {
                         @Override
@@ -1031,7 +1024,7 @@ public final class ThreadUtils {
                             removeScheduleByTask(Task.this);
                         }
                     });
-                }*/
+                }
             } catch (final Throwable throwable) {
                 if (state != NEW) return;
 
