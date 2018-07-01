@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.lzr.warden.terrificlibrary.R;
@@ -44,6 +45,11 @@ public abstract class BaseBackActivity extends BaseActivity {
 
         BarUtils.setStatusBarColor(mContext, ContextCompat.getColor(BaseApplication.getInstance(), R.color.colorPrimary), 0);
         BarUtils.addMarginTopEqualStatusBarHeight(mContentView);
+    }
+
+    public void setToolBarVisible(boolean visible) {
+        mToolbar.setVisibility(visible? View.VISIBLE:View.GONE);
+        BarUtils.setNavBarVisibility(mContext,false);
     }
 
     public void setToolBarBG(int color) {
