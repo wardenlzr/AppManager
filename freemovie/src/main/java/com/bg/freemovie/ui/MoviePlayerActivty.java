@@ -2,6 +2,7 @@ package com.bg.freemovie.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import com.bg.freemovie.R;
 import com.just.agentweb.AgentWeb;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
+import com.lzr.warden.terrificlibrary.util.ColorUtils;
+import com.lzr.warden.terrificlibrary.util.ToastUtils;
 
 /**
  * Create by warden
@@ -39,8 +42,10 @@ public class MoviePlayerActivty extends BaseBackActivity {
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
         setToolBarVisible(false);
+        setToolBarBG(Color.BLACK);
         String url = getIntent().getStringExtra("url");
 
+        ToastUtils.showLong("这广告小编正在想办法去掉...");
 //        WebView webView = findViewById(R.id.webview);
 //        webView.loadUrl(BASEURL+url);
         AgentWeb.with(this)

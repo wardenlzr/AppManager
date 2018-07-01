@@ -49,12 +49,12 @@ public abstract class BaseBackActivity extends BaseActivity {
 
     public void setToolBarVisible(boolean visible) {
         mToolbar.setVisibility(visible? View.VISIBLE:View.GONE);
-        BarUtils.setNavBarVisibility(mContext,false);
+        BarUtils.setNavBarVisibility(mContext.getWindow(),visible);
     }
 
     public void setToolBarBG(int color) {
         mToolbar.setBackgroundColor(color);
-        BarUtils.setStatusBarColor(mContext, color, 0);
+        BarUtils.setStatusBarColor(mContext, color, 50);
     }
 
     @Override

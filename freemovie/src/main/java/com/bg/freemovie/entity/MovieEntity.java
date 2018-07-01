@@ -7,9 +7,9 @@ package com.bg.freemovie.entity;
  */
 public class MovieEntity {
 
-    public String movieName;
-    public String moviePic;
-    public String movieUrl;
-    public String movieToStar;
+    public String title; //电影名
+    public String href; //视频地址
+    public String src; //图片
+    public String movieToStar; //主演
 
 }
