@@ -19,7 +19,7 @@ import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
  * 2018/7/1 11:50
  * email:wardenlzr@qq.com
  */
-public class MoviePlayerActivty extends BaseBackActivity {
+public class WebViewActivity extends BaseBackActivity {
     private String BASEURL = "http://yun.baiyug.cn/vip/?url=";
 
 //    private IjkPlayerView mPlayerView;
@@ -61,7 +61,7 @@ public class MoviePlayerActivty extends BaseBackActivity {
 //        initPlayerView();
     }
     public static void start(Activity context, String url){
-        Intent intent = new Intent(context, MoviePlayerActivty.class);
+        Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
         context.overridePendingTransition(com.lzr.warden.terrificlibrary.R.anim.slide_in_left, com.lzr.warden.terrificlibrary.R.anim.slide_out_left);

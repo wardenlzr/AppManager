@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.bg.freemovie.R;
 import com.bg.freemovie.entity.MovieEntity;
-import com.bg.freemovie.ui.MoviePlayerActivty;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzr.warden.terrificlibrary.util.GlideUtils;
