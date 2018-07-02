@@ -13,9 +13,7 @@ import android.widget.LinearLayout;
 
 import com.bg.freemovie.R;
 import com.just.agentweb.AgentWeb;
-import com.lzr.warden.terrificlibrary.base.BaseActivity;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
-import com.lzr.warden.terrificlibrary.util.LogUtils;
 import com.lzr.warden.terrificlibrary.util.ToastUtils;
 
 /**
@@ -23,13 +21,12 @@ import com.lzr.warden.terrificlibrary.util.ToastUtils;
  * 2018/7/1 11:50
  * email:wardenlzr@qq.com
  */
-public class WebViewActivity extends BaseActivity {
-
-    private WebView webView;
+public class MoviePlayerActivity extends BaseBackActivity {
+    private String BASEURL = "http://yun.baiyug.cn/vip/?url=";
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_webview;
+        return R.layout.activity_movie_player;
     }
 
     @Override
@@ -42,14 +39,17 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
+        setToolBarVisible(false);
+        setToolBarBG(Color.BLACK);
         String url = getIntent().getStringExtra("url");
+
         AgentWeb mAgentWeb  = AgentWeb.with(this)
-                .setAgentWebParent((LinearLayout) findViewById(R.id.ll_web), new LinearLayout.LayoutParams(-1, -1))
+                .setAgentWebParent((LinearLayout) contentView, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .createAgentWeb()
-//                .ready()
-                .go(url);
-        webView = mAgentWeb.getWebCreator().getWebView();
+                .ready()
+                .go(BASEURL +url);
+        WebView webView = mAgentWeb.getWebCreator().getWebView();
         String userAgent = webView.getSettings().getUserAgentString();
         if (!TextUtils.isEmpty(userAgent)) {
             webView.getSettings().setUserAgentString(userAgent
@@ -57,30 +57,11 @@ public class WebViewActivity extends BaseActivity {
                     .replace("android", "")
                     + " cldc");
         }
-        LogUtils.e("initView.url:"+webView.getUrl());
-        findViewById(R.id.fab).setOnClickListener(view -> {
-            String webViewUrl = webView.getUrl();
-            if (webViewUrl.contains("www.iqiyi") || webViewUrl.contains("v.qq") || webViewUrl.contains("v.youku") || webViewUrl.contains("new-play.tudou")) {
-                MoviePlayerActivity.start(mContext, webViewUrl);
-            }else {
-                ToastUtils.showLong("要看哪个你先点进去啊！");
-            }
-        });
     }
     public static void start(Activity context, String url){
-        Intent intent = new Intent(context, WebViewActivity.class);
+        Intent intent = new Intent(context, MoviePlayerActivity.class);
         intent.putExtra("url", url);
-        LogUtils.e("start.url:"+url);
         context.startActivity(intent);
         context.overridePendingTransition(com.lzr.warden.terrificlibrary.R.anim.slide_in_left, com.lzr.warden.terrificlibrary.R.anim.slide_out_left);
-    }
-
-    @Override
-    public void onBackPressed() {
-        LogUtils.e("onBackPressed.url:"+webView.getUrl());
-        if (webView.canGoBack()) {
-
-        }
-        super.onBackPressed();
     }
 }

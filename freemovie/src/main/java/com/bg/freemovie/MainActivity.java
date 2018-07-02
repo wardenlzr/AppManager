@@ -12,27 +12,20 @@ import android.widget.Toast;
 
 import com.bg.freemovie.adapter.MovieListAdapter;
 import com.bg.freemovie.entity.MovieEntity;
-import com.bg.freemovie.ui.MoviePlayerActivty;
-import com.bg.freemovie.utils.Constans;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.bg.freemovie.ui.WebViewActivity;
+import com.bg.freemovie.utils.Constans;
+import com.bg.freemovie.ui.MoviePlayerActivity;
 import com.lzr.warden.terrificlibrary.base.BaseDrawerActivity;
 import com.lzr.warden.terrificlibrary.http.HttpManager;
-import com.lzr.warden.terrificlibrary.http.MyCallBack;
-import com.lzr.warden.terrificlibrary.http.MyListCallBack;
 import com.lzr.warden.terrificlibrary.util.BarUtils;
 import com.lzr.warden.terrificlibrary.util.JsonUtil;
 import com.lzr.warden.terrificlibrary.util.ToastUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * Create by warden
@@ -51,15 +44,19 @@ public class MainActivity extends BaseDrawerActivity {
         setItemListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_aiqiyi:
+                    WebViewActivity.start(mContext,Constans.ITEM_AIQIYI);
                     break;
                 case R.id.action_tencent:
+                    WebViewActivity.start(mContext,Constans.ITEM_TENCENT);
                     break;
                 case R.id.action_youku:
+                    WebViewActivity.start(mContext,Constans.ITEM_YOUKU);
                     break;
                 case R.id.action_tudou:
+                    WebViewActivity.start(mContext,Constans.ITEM_TUDOU);
                     break;
                 case R.id.action_blog:
-
+                    WebViewActivity.start(mContext,Constans.ITEM_BLOG);
                     break;
             }
             return false;
@@ -113,7 +110,7 @@ public class MainActivity extends BaseDrawerActivity {
         GridLayoutManager manager = new GridLayoutManager(mContext, 2);
         mRecyclerView.setLayoutManager(manager);
         adapter = new MovieListAdapter(list);
-        adapter.setOnItemClickListener((adapter1, view, position) -> MoviePlayerActivty.start(mContext,list.get(position).href));
+        adapter.setOnItemClickListener((adapter1, view, position) -> MoviePlayerActivity.start(mContext,list.get(position).href));
         mRecyclerView.setAdapter(adapter);
     }
 
