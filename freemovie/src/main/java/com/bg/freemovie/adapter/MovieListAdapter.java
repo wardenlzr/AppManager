@@ -27,7 +27,7 @@ public class MovieListAdapter extends BaseQuickAdapter<MovieEntity, BaseViewHold
     protected void convert(BaseViewHolder helper, MovieEntity item) {
         GlideUtils.loadImg(item.moviePic, (ImageView) helper.getView(R.id.moviePic));
         helper.setText(R.id.tv_name, item.movieName)
-                .setText(R.id.tv_to_star, item.movieToStar);
+                .setText(R.id.tv_to_star, "主演："+item.movieToStar);
     }
 
 }
