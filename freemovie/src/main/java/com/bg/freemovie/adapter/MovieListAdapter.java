@@ -19,18 +19,14 @@ import java.util.List;
 public class MovieListAdapter extends BaseQuickAdapter<MovieEntity, BaseViewHolder> {
 
     public MovieListAdapter(@Nullable List<MovieEntity> data) {
-        super(R.layout.item_movie, data);
+        super(R.layout.item_movie,data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MovieEntity item) {
-        try {
-            GlideUtils.loadImg(item.src, (ImageView) helper.getView(R.id.moviePic));
-            helper.setText(R.id.tv_name, item.title)
-                    .setText(R.id.tv_to_star, item.movieToStar);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        GlideUtils.loadImg(item.moviePic, (ImageView) helper.getView(R.id.moviePic));
+        helper.setText(R.id.tv_name, item.movieName)
+                .setText(R.id.tv_to_star, "主演："+item.movieToStar);
     }
 
 }

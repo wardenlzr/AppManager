@@ -3,10 +3,8 @@ package com.bg.freemovie;
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,6 +15,7 @@ import com.bg.freemovie.entity.MovieEntity;
 import com.bg.freemovie.ui.MoviePlayerActivty;
 import com.bg.freemovie.utils.Constans;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.bg.freemovie.ui.WebViewActivity;
 import com.lzr.warden.terrificlibrary.base.BaseDrawerActivity;
 import com.lzr.warden.terrificlibrary.http.HttpManager;
 import com.lzr.warden.terrificlibrary.http.MyCallBack;
@@ -48,6 +47,23 @@ public class MainActivity extends BaseDrawerActivity {
 
     @Override
     public int bindLayout() {
+        setDrawer(R.layout.activity_movie_drawer);
+        setItemListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_aiqiyi:
+                    break;
+                case R.id.action_tencent:
+                    break;
+                case R.id.action_youku:
+                    break;
+                case R.id.action_tudou:
+                    break;
+                case R.id.action_blog:
+
+                    break;
+            }
+            return false;
+        });
         return R.layout.activity_main;
     }
 

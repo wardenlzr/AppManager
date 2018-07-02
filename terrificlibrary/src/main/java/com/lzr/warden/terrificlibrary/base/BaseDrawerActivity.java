@@ -27,6 +27,7 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
     protected DrawerLayout rootLayout;
     protected FrameLayout flActivityContainer;
+    private int drawerRes = -1;
 
     NavigationView.OnNavigationItemSelectedListener mListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -39,13 +40,24 @@ public abstract class BaseDrawerActivity extends BaseActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Config.BLOG)));
 
             }
+
             return false;
         }
     };
 
+    public void setDrawer(@LayoutRes int layoutId){
+        drawerRes = layoutId;
+    }
+    public void setItemListener(NavigationView.OnNavigationItemSelectedListener listener){
+        mListener = listener;
+    }
+
     @Override
     protected void setBaseView(@LayoutRes int layoutId) {
-        mContentView = LayoutInflater.from(this).inflate(R.layout.activity_drawer, null);
+        if (drawerRes == -1) {
+            drawerRes = R.layout.activity_drawer;
+        }
+        mContentView = LayoutInflater.from(this).inflate(drawerRes, null);
         setContentView(mContentView);
         rootLayout = findViewById(R.id.root_layout);
         flActivityContainer = findViewById(R.id.activity_container);

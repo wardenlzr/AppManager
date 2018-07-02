@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,7 +22,7 @@ import com.lzr.warden.terrificlibrary.util.ToastUtils;
  * 2018/7/1 11:50
  * email:wardenlzr@qq.com
  */
-public class MoviePlayerActivty extends BaseBackActivity {
+public class WebViewActivity extends BaseBackActivity {
     private String BASEURL = "http://yun.baiyug.cn/vip/?url=";
 
 //    private IjkPlayerView mPlayerView;
@@ -48,16 +49,24 @@ public class MoviePlayerActivty extends BaseBackActivity {
         ToastUtils.showLong("这广告小编正在想办法去掉...");
 //        WebView webView = findViewById(R.id.webview);
 //        webView.loadUrl(BASEURL+url);
-        AgentWeb.with(this)
+        AgentWeb mAgentWeb  = AgentWeb.with(this)
                 .setAgentWebParent((LinearLayout) contentView, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()
                 .go(BASEURL +url);
+        WebView webView = mAgentWeb.getWebCreator().getWebView();
+        String userAgent = webView.getSettings().getUserAgentString();
+        if (!TextUtils.isEmpty(userAgent)) {
+            webView.getSettings().setUserAgentString(userAgent
+                    .replace("Android", "")
+                    .replace("android", "")
+                    + " cldc");
+        }
 //        initPlayerView();
     }
     public static void start(Activity context, String url){
-        Intent intent = new Intent(context, MoviePlayerActivty.class);
+        Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
         context.overridePendingTransition(com.lzr.warden.terrificlibrary.R.anim.slide_in_left, com.lzr.warden.terrificlibrary.R.anim.slide_out_left);
