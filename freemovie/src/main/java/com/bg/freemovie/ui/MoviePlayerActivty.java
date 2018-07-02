@@ -3,6 +3,7 @@ package com.bg.freemovie.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -43,12 +44,20 @@ public class MoviePlayerActivty extends BaseBackActivity {
 
 //        WebView webView = findViewById(R.id.webview);
 //        webView.loadUrl(BASEURL+url);
-        AgentWeb.with(this)
+        AgentWeb mAgentWeb  = AgentWeb.with(this)
                 .setAgentWebParent((LinearLayout) contentView, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()
                 .go(BASEURL +url);
+        WebView webView = mAgentWeb.getWebCreator().getWebView();
+        String userAgent = webView.getSettings().getUserAgentString();
+        if (!TextUtils.isEmpty(userAgent)) {
+            webView.getSettings().setUserAgentString(userAgent
+                    .replace("Android", "")
+                    .replace("android", "")
+                    + " cldc");
+        }
 //        initPlayerView();
     }
     public static void start(Activity context, String url){
