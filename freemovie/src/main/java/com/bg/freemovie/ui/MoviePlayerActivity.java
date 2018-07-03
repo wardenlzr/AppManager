@@ -44,7 +44,7 @@ public class MoviePlayerActivity extends BaseBackActivity {
         String url = getIntent().getStringExtra("url");
 
         AgentWeb mAgentWeb  = AgentWeb.with(this)
-                .setAgentWebParent((LinearLayout) contentView, new LinearLayout.LayoutParams(-1, -1))
+                .setAgentWebParent(findViewById(R.id.ll_movie_player), new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()

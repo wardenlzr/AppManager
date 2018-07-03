@@ -48,9 +48,19 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
-            android:padding="@dimen/spacing_16"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:padding="@dimen/spacing_16" />
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_tencent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/more" />
+
 </android.support.design.widget.CoordinatorLayout>

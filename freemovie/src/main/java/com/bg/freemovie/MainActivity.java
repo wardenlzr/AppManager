@@ -45,7 +45,7 @@ public class MainActivity extends BaseDrawerActivity {
         setItemListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_aiqiyi:
-                    WebViewActivity.start(mContext,Constans.ITEM_AIQIYI);
+                    WebViewActivity.start(mContext,Constans.ITEM_IQIYI);
                     break;
                 case R.id.action_tencent:
                     WebViewActivity.start(mContext,Constans.ITEM_TENCENT);
@@ -70,6 +70,29 @@ public class MainActivity extends BaseDrawerActivity {
 
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
+        initToolBar();
+        getMovies();
+        findViewById(R.id.fab_tencent).setOnClickListener(view -> WebViewActivity.start(mContext, Constans.ITEM_TENCENT));
+    }
+
+    private void getMovies() {
+        mRecyclerView = findViewById(R.id.rv_list);
+        HttpManager.getAsync(Constans.MOVIES, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                MovieEntity[] list = JsonUtil.toBean(response, MovieEntity[].class);
+                ToastUtils.showLong("当前内置了"+list.length + "部会员电影，想免费看更多会员电影请联系作者");
+                setAdapter(list);
+            }
+        });
+    }
+
+    private void initToolBar() {
         mToolbar = findViewById(R.id.toolbar);
         View fakeStatusBar = findViewById(R.id.fake_status_bar);
         CollapsingToolbarLayout ctl = findViewById(R.id.ctl);
@@ -85,23 +108,6 @@ public class MainActivity extends BaseDrawerActivity {
 
         BarUtils.setStatusBarAlpha4Drawer(this, rootLayout, fakeStatusBar, 0, false);
         BarUtils.addMarginTopEqualStatusBarHeight(mToolbar);
-
-        mRecyclerView = findViewById(R.id.rv_list);
-
-        HttpManager.getAsync(Constans.MOVIES, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                MovieEntity[] list = JsonUtil.toBean(response, MovieEntity[].class);
-                ToastUtils.showLong("当前内置了"+list.length + "部会员电影，想免费看更多会员电影请联系作者");
-                setAdapter(list);
-            }
-        });
-
     }
 
     private void setAdapter(MovieEntity[] arr) {
