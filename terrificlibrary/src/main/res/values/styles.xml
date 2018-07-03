@@ -9,7 +9,7 @@
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="android:windowActionBar">false</item>
         <!--slider-->
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
