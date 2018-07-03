@@ -18,6 +18,7 @@ import com.bg.freemovie.R;
 import com.just.agentweb.AgentWeb;
 import com.lzr.warden.terrificlibrary.base.BaseActivity;
 import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
+import com.lzr.warden.terrificlibrary.util.AppUtils;
 import com.lzr.warden.terrificlibrary.util.LogUtils;
 import com.lzr.warden.terrificlibrary.util.ToastUtils;
 
@@ -66,7 +67,8 @@ public class WebViewActivity extends BaseActivity {
             if (webViewUrl.contains("www.iqiyi") || webViewUrl.contains("v.qq") || webViewUrl.contains("v.youku") || webViewUrl.contains("new-play.tudou")) {
                 MoviePlayerActivity.start(mContext, webViewUrl);
             } else if (webViewUrl.contains("wardenlzr.github")) {
-                ToastUtils.showShort("领个红包支持下作者");
+                AppUtils.getBonus();
+                /*ToastUtils.showShort("领个红包支持下作者");
                 ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 // 将文本内容放到系统剪贴板里。
                 assert cm != null;
@@ -80,7 +82,7 @@ public class WebViewActivity extends BaseActivity {
                 }catch (Exception e) {
                     e.printStackTrace();
                     ToastUtils.showShort("尴尬死...");
-                }
+                }*/
             } else {
                 ToastUtils.showLong("要看哪个你先点进去啊！");
             }

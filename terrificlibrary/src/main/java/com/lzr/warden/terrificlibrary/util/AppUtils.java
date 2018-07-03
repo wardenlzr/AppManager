@@ -3,6 +3,7 @@ package com.lzr.warden.terrificlibrary.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,25 @@ public final class AppUtils {
 
     private AppUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    public static void getBonus(){
+        Context context = Utils.getTopActivityOrApp();
+        ToastUtils.showShort("领个红包支持下作者");
+        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 将文本内容放到系统剪贴板里。
+        assert cm != null;
+        cm.setText("RNtf3D86jX");
+        try {
+            PackageManager packageManager
+                    = context.getApplicationContext().getPackageManager();
+            Intent intent = packageManager.
+                    getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+            context.startActivity(intent);
+        }catch (Exception e) {
+            e.printStackTrace();
+            ToastUtils.showShort("尴尬死...");
+        }
     }
 
     /**

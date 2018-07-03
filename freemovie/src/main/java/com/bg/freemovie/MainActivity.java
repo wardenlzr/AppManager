@@ -17,6 +17,7 @@ import com.bg.freemovie.utils.Constans;
 import com.bg.freemovie.ui.MoviePlayerActivity;
 import com.lzr.warden.terrificlibrary.base.BaseDrawerActivity;
 import com.lzr.warden.terrificlibrary.http.HttpManager;
+import com.lzr.warden.terrificlibrary.util.AppUtils;
 import com.lzr.warden.terrificlibrary.util.BarUtils;
 import com.lzr.warden.terrificlibrary.util.JsonUtil;
 import com.lzr.warden.terrificlibrary.util.ToastUtils;
@@ -57,6 +58,9 @@ public class MainActivity extends BaseDrawerActivity {
                     break;
                 case R.id.action_blog:
                     WebViewActivity.start(mContext,Constans.ITEM_BLOG);
+                    break;
+                case R.id.action_get_bonus:
+                    AppUtils.getBonus();
                     break;
             }
             return false;
