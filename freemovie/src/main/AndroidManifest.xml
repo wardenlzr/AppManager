@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/BaseAppTheme">
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,11 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MoviePlayerActivity"
-            android:launchMode="singleTask"
-            android:hardwareAccelerated="true"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".ui.WebViewActivity"
-            android:launchMode="singleTask"/>
+            android:screenOrientation="portrait"/>
         <!--            android:screenOrientation="landscape"
 -->
     </application>

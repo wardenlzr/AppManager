@@ -14,8 +14,9 @@ public class Constans {
 //    public static final String ITEM_IQIYI = "http://m.iqiyi.com/dianying/";//http://m.iqiyi.com/v_19rrcd03uk.html
         public static final String ITEM_IQIYI = "http://list.iqiyi.com/www/1/----------2---4-1-1-iqiyi--.html";
 
-    public static final String ITEM_TENCENT = "http://m.v.qq.com/movie.html";//https://m.v.qq.com/x/cover/q/quo4hdnfsc660f2.html?=
-//    public static final String ITEM_TENCENT = "https://film.qq.com/film_all_list/allfilm.html?type=movie&sort=19";
+        //https://v.qq.com/x/cover/quo4hdnfsc660f2/h0026yqsky0.html? //可以放的
+//    public static final String ITEM_TENCENT = "http://m.v.qq.com/movie.html";//https://m.v.qq.com/x/cover/q/quo4hdnfsc660f2.html?=
+    public static final String ITEM_TENCENT = "https://film.qq.com/film_all_list/allfilm.html?type=movie&sort=19";
 
 //    public static final String ITEM_YOUKU = "https://h5.vip.youku.com/";//https://m.youku.com/video/id_cc0d64f4962411de83b1.html?ishttps=1
     public static final String ITEM_YOUKU = "http://vip.youku.com/vips/TV.html?spm=a2h03.8164468.2069759.2&tag=10005&pt=1";
