@@ -1,0 +1,34 @@
+package com.lzr.warden.terrificlibrary.http;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+/**
+ * Created by yubin
+ * 2018/10/9 0009-下午 6:24
+ */
+public class ParameterizedTypeImpl implements ParameterizedType {
+
+    private final Class raw;
+    private final Type[] args;
+
+    public ParameterizedTypeImpl(Class raw, Type[] args) {
+        this.raw = raw;
+        this.args = args != null ? args : new Type[0];
+    }
+
+    @Override
+    public Type[] getActualTypeArguments() {
+        return args;
+    }
+
+    @Override
+    public Type getRawType() {
+        return raw;
+    }
+
+    @Override
+    public Type getOwnerType() {
+        return null;
+    }
+}

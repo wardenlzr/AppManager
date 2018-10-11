@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">freemovie</string>
+    <string name="updateTips">请升级最新版本</string>
 </resources>

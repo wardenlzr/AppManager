@@ -5,11 +5,12 @@ package com.bg.freemovie.utils;
  * 2018/7/1 16:37
  * email:wardenlzr@qq.com
  */
-public class Constans {
+public class Constants {
 
-    public static final String BASEURL = "http://yun.baiyug.cn/vip/?url=";
+    public static String BASEURL = "http://app.baiyug.cn:2019/vip/?url=";
 
     public static final String MOVIES = "http://www.wanandroid.com/tools/mockapi/876/movies";
+    public static final String GETBASEBYG = "http://www.wanandroid.com/tools/mockapi/876/getBaseBYG";
 
 //    public static final String ITEM_IQIYI = "http://m.iqiyi.com/dianying/";//http://m.iqiyi.com/v_19rrcd03uk.html
         public static final String ITEM_IQIYI = "http://list.iqiyi.com/www/1/----------2---4-1-1-iqiyi--.html";

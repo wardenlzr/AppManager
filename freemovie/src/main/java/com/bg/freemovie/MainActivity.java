@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bg.freemovie.adapter.MovieListAdapter;
+import com.bg.freemovie.entity.BaseBYGEntity;
 import com.bg.freemovie.entity.MovieEntity;
 import com.bg.freemovie.ui.WebViewActivity;
-import com.bg.freemovie.utils.Constans;
+import com.bg.freemovie.utils.Constants;
 import com.bg.freemovie.ui.MoviePlayerActivity;
 import com.lzr.warden.terrificlibrary.base.BaseDrawerActivity;
 import com.lzr.warden.terrificlibrary.http.HttpManager;
+import com.lzr.warden.terrificlibrary.http.MyCallBack;
 import com.lzr.warden.terrificlibrary.util.AppUtils;
 import com.lzr.warden.terrificlibrary.util.BarUtils;
 import com.lzr.warden.terrificlibrary.util.JsonUtil;
@@ -45,19 +47,19 @@ public class MainActivity extends BaseDrawerActivity {
         setItemListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_aiqiyi:
-                    WebViewActivity.start(mContext,Constans.ITEM_IQIYI);
+                    WebViewActivity.start(mContext,Constants.ITEM_IQIYI);
                     break;
                 case R.id.action_tencent:
-                    WebViewActivity.start(mContext,Constans.ITEM_TENCENT);
+                    WebViewActivity.start(mContext,Constants.ITEM_TENCENT);
                     break;
                 case R.id.action_youku:
-                    WebViewActivity.start(mContext,Constans.ITEM_YOUKU);
+                    WebViewActivity.start(mContext,Constants.ITEM_YOUKU);
                     break;
                 case R.id.action_tudou:
-                    WebViewActivity.start(mContext,Constans.ITEM_TUDOU);
+                    WebViewActivity.start(mContext,Constants.ITEM_TUDOU);
                     break;
                 case R.id.action_blog:
-                    WebViewActivity.start(mContext,Constans.ITEM_BLOG);
+                    WebViewActivity.start(mContext,Constants.ITEM_BLOG);
                     break;
                 case R.id.action_get_bonus:
                     AppUtils.getBonus();
@@ -71,13 +73,34 @@ public class MainActivity extends BaseDrawerActivity {
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
         initToolBar();
-        getMovies();
-        findViewById(R.id.fab_tencent).setOnClickListener(view -> WebViewActivity.start(mContext, Constans.ITEM_TENCENT));
+        getBaseBYG();
+        findViewById(R.id.fab_tencent).setOnClickListener(view -> WebViewActivity.start(mContext, Constants.ITEM_TENCENT));
     }
 
+    //获取基本信息
+    private void getBaseBYG() {
+        HttpManager.getAsync(Constants.GETBASEBYG, new MyCallBack<BaseBYGEntity>() {
+            @Override
+            public void ok(BaseBYGEntity result) {
+                if (result.versionCode == AppUtils.getAppVersionCode()) {
+                    Constants.BASEURL = result.byg;
+                    getMovies();
+                }else {
+                    ToastUtils.showShort(R.string.updateTips);
+                }
+            }
+
+            @Override
+            public void fail(String msg) {
+
+            }
+        });
+    }
+
+    //获取电影列表
     private void getMovies() {
         mRecyclerView = findViewById(R.id.rv_list);
-        HttpManager.getAsync(Constans.MOVIES, new StringCallback() {
+        HttpManager.getAsync(Constants.MOVIES, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
 
@@ -134,17 +157,4 @@ public class MainActivity extends BaseDrawerActivity {
         }
     }
     private long exitTime = 0;
-    /*List<MovieEntity> list = new ArrayList<>();
-            MovieEntity entity = new MovieEntity();
-            entity.movieName = "后来的我们";
-            entity.moviePic = "http://pic2.qiyipic.com/image/20180621/15/b9/v_114345562_m_601_m9_180_236.jpg";
-            entity.movieUrl = "http://www.iqiyi.com/v_19rrf0jhms.html";
-            entity.movieToStar = "井柏然 周冬雨";
-            list.add(entity);
-            MovieEntity entity1 = new MovieEntity();
-            entity1.movieName = "红海行动";
-            entity1.moviePic = "http://pic4.qiyipic.com/image/20180428/84/a8/v_112882553_m_601_m4_180_236.jpg";
-            entity1.movieUrl = "http://www.iqiyi.com/v_19rr7plwdc.html#vfrm=2-4-0-1";
-            entity1.movieToStar = "张译 黄景瑜";
-            list.add(entity1);*/
 }
