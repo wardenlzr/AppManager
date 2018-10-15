@@ -47,7 +47,7 @@ public abstract class BaseBackActivity extends BaseActivity {
         BarUtils.addMarginTopEqualStatusBarHeight(mContentView);
     }
 
-    public void setToolBarVisible(boolean visible) {
+    /*public void setToolBarVisible(boolean visible) {
         mToolbar.setVisibility(visible? View.VISIBLE:View.GONE);
         BarUtils.setNavBarVisibility(mContext.getWindow(),visible);
     }
@@ -55,7 +55,7 @@ public abstract class BaseBackActivity extends BaseActivity {
     public void setToolBarBG(int color) {
         mToolbar.setBackgroundColor(color);
         BarUtils.setStatusBarColor(mContext, color, 50);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

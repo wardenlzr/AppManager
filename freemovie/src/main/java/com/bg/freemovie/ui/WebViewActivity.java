@@ -1,24 +1,24 @@
 package com.bg.freemovie.ui;
 
 import android.app.Activity;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.bg.freemovie.R;
 import com.just.agentweb.AgentWeb;
 import com.lzr.warden.terrificlibrary.base.BaseActivity;
-import com.lzr.warden.terrificlibrary.base.BaseBackActivity;
 import com.lzr.warden.terrificlibrary.util.AppUtils;
+import com.lzr.warden.terrificlibrary.util.BarUtils;
 import com.lzr.warden.terrificlibrary.util.LogUtils;
 import com.lzr.warden.terrificlibrary.util.ToastUtils;
 
@@ -37,15 +37,8 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void initView(Bundle savedInstanceState, View contentView) {
+//        BarUtils.setStatusBarColor(mContext, Color.BLACK, 0);
         String url = getIntent().getStringExtra("url");
         AgentWeb mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(findViewById(R.id.ll_web), new LinearLayout.LayoutParams(-1, -1))
@@ -54,13 +47,30 @@ public class WebViewActivity extends BaseActivity {
                 .ready()
                 .go(url);
         webView = mAgentWeb.getWebCreator().getWebView();
-        /*String userAgent = webView.getSettings().getUserAgentString();
-        if (!TextUtils.isEmpty(userAgent)) {
+        WebSettings settings = webView.getSettings();
+        /*String userAgent = settings.getUserAgentString();
+        if (!TextUtils.isEmpty(userAgent)) {//url.contains("qq.com") &&
             webView.getSettings().setUserAgentString(userAgent
                     .replace("Android", "")
                     .replace("android", "")
                     + " cldc");
         }*/
+        //自适应屏幕
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        //自动缩放
+        settings.setBuiltInZoomControls(true);
+        settings.setSupportZoom(true);
+        //支持获取手势焦点
+        webView.requestFocusFromTouch();
+        //自适应屏幕
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        //自动缩放
+        settings.setBuiltInZoomControls(true);
+        settings.setSupportZoom(true);
+        //支持获取手势焦点
+        webView.requestFocusFromTouch();
         LogUtils.e("initView.url:" + webView.getUrl());
         findViewById(R.id.fab).setOnClickListener(view -> {
             String webViewUrl = webView.getUrl();
@@ -70,13 +80,14 @@ public class WebViewActivity extends BaseActivity {
                     || (webViewUrl.contains("m.v.qq") && !webViewUrl.contains("movie"))
                     || webViewUrl.contains("m.youku")
                     || webViewUrl.contains("compaign.tudou"))*/
-            if (webViewUrl.contains("www.iqiyi") || (webViewUrl.contains("m.v.qq") && !webViewUrl.contains("movie"))
-                    || webViewUrl.contains("v.youku") || webViewUrl.contains("new-play.tudou")) {
-                MoviePlayerActivity.start(mContext, webViewUrl);
+            if (webViewUrl.contains("list.iqiyi") || webViewUrl.contains("film.qq")
+                    || webViewUrl.contains("vip.youku") || webViewUrl.contains("new.tudou")) {
+                ToastUtils.showLong("要看哪个你先点进去啊！");
             } else if (webViewUrl.contains("wardenlzr.github")) {
                 AppUtils.getBonus();
             } else {
-                ToastUtils.showLong("要看哪个你先点进去啊！");
+                MoviePlayerActivity.start(mContext, webViewUrl);
+
             }
         });
     }
